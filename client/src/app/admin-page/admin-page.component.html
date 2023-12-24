@@ -1,0 +1,44 @@
+<div *ngIf="applications.length > 0; else noApplications">
+  <h2>Список заявок:</h2>
+  <ul>
+    <li *ngFor="let application of applications">
+      <div>
+        <p><strong>Тип лица:</strong> {{ application.clienttype }}</p>
+
+        <ng-container *ngIf="application.clienttype === 'Физическое'">
+          <p><strong>Имя:</strong> {{ application.firstname }}</p>
+          <p><strong>Фамилия:</strong> {{ application.lastname }}</p>
+        </ng-container>
+
+        <ng-container *ngIf="application.clienttype === 'Юридическое'">
+          <p>
+            <strong>Название организации:</strong>
+            {{ application.organizationname }}
+          </p>
+        </ng-container>
+
+        <p>
+          <strong>Контактная информация:</strong> {{ application.contactinfo }}
+        </p>
+        <p>
+          <strong>Номер контракта:</strong> {{ application.contractnumber }}
+        </p>
+
+        <button class="btn btn-delete" (click)="openRejectReasonDialog(application.clientid.toString())">
+          Отклонить
+        </button>
+
+        <button
+          class="btn btn-approve"
+          (click)="accpetApplication(application.clientid.toString())"
+        >
+          Одобрить
+        </button>
+      </div>
+    </li>
+  </ul>
+</div>
+
+<ng-template #noApplications>
+  <p>Нет доступных заявок.</p>
+</ng-template>

@@ -1,0 +1,114 @@
+<div class="overlay">
+  <form class="card" [formGroup]="form" (ngSubmit)="onSubmit()">
+    <span class="card-title">Составить заявку</span>
+    <div class="helper-text red-text">{{ registrationError }}</div>
+
+    <div class="card-content">
+      <!-- Выбор типа клиента -->
+      <div class="input-field">
+        <label for="clientType">Тип клиента:</label>
+        <select formControlName="type" id="clientType">
+          <option value="Физическое">Физическое</option>
+          <option value="Юридическое">Юридическое</option>
+        </select>
+      </div>
+
+      <!-- Общие поля для обоих типов клиентов -->
+      <div class="input-field">
+        <label for="contactInfo">Контактная информация:</label>
+        <input
+          formControlName="contactinfo"
+          id="contactInfo"
+          type="text"
+          required
+        />
+        <span
+          *ngIf="form.get('contactinfo')?.touched && form.get('contactinfo')?.errors?.['required']"
+          class="helper-text red-text"
+        >
+          Контактная информация обязательна.
+        </span>
+      </div>
+
+      <div class="input-field">
+        <label for="contractNumber">Номер контракта:</label>
+        <input
+          formControlName="contractnumber"
+          id="contractNumber"
+          type="text"
+          required
+        />
+        <span
+          *ngIf="form.get('contractnumber')?.touched && form.get('contractnumber')?.errors?.['required']"
+          class="helper-text red-text"
+        >
+          Номер контракта обязателен.
+        </span>
+      </div>
+
+      <!-- Дополнительные поля для "Физического" типа клиента -->
+      <div *ngIf="form.get('type')?.value === 'Физическое'">
+        <div class="input-field">
+          <label for="firstName">Имя:</label>
+          <input
+            formControlName="firstName"
+            id="firstName"
+            type="text"
+            required
+          />
+          <span
+            *ngIf="form.get('firstName')?.touched && form.get('firstName')?.errors?.['required']"
+            class="helper-text red-text"
+          >
+            Имя обязательно.
+          </span>
+        </div>
+
+        <div class="input-field">
+          <label for="lastName">Фамилия:</label>
+          <input
+            formControlName="lastName"
+            id="lastName"
+            type="text"
+            required
+          />
+          <span
+            *ngIf="form.get('lastName')?.touched && form.get('lastName')?.errors?.['required']"
+            class="helper-text red-text"
+          >
+            Фамилия обязательна.
+          </span>
+        </div>
+      </div>
+
+      <!-- Дополнительные поля для "Юридического" типа клиента -->
+      <div *ngIf="form.get('type')?.value === 'Юридическое'">
+        <div class="input-field">
+          <label for="organizationName">Название организации:</label>
+          <input
+            formControlName="organizationname"
+            id="organizationName"
+            type="text"
+            required
+          />
+          <span
+            *ngIf="form.get('organizationname')?.touched && form.get('organizationname')?.errors?.['required']"
+            class="helper-text red-text"
+          >
+            Название организации обязательно.
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <div class="card-action">
+      <button
+        type="submit"
+        class="btn"
+        [disabled]="form.disabled"
+      >
+        Создать
+      </button>
+    </div>
+  </form>
+</div>

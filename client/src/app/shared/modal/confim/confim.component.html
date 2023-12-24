@@ -1,0 +1,13 @@
+<div class="overlay">
+    <div class="card">
+      <div class="card-title">Введите причину отказа</div>
+      <div class="card-content">
+        <label for="reason">Причина:</label>
+        <textarea id="reason" [(ngModel)]="reason" placeholder="Введите причину отказа"></textarea>
+      </div>
+      <div class="card-action">
+        <button class="btn btn-delete" (click)="refuseApplication()">Отправить</button>
+        <button class="btn" (click)="activeModal.dismiss()">Отмена</button>
+      </div>
+    </div>
+  </div>
